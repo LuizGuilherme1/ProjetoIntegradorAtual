@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-	//pacientes e add, sysmptons, adicinar a chave e a passagem de chave, mudar db para h2, limitar a listagem de pacientes
+	//sysmptons, adicinar a chave e a passagem de chave, mudar db para h2
 	
 	private static Scene mainScene;
 	@Override

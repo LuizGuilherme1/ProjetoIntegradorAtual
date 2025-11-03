@@ -12,6 +12,7 @@ import db.DB;
 import db.DbException;
 import model.dao.PacientesDao;
 import model.entites.Pacientes;
+import model.entites.Usuario;
 
 public class PacientesDaoJDBC implements PacientesDao{
 	
@@ -29,7 +30,7 @@ public class PacientesDaoJDBC implements PacientesDao{
 					"INSERT INTO pacientes "
 					+ "(paciente_name, idade, data_nascimento, sexo, cns, cpf, rg, cep, endereço, complemento, user_id) "
 					+ "VALUES "
-					+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+					+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			st.setString(1, p.getName());
 			st.setInt(2, p.getIdade());
@@ -41,7 +42,7 @@ public class PacientesDaoJDBC implements PacientesDao{
 			st.setString(8, p.getCep());
 			st.setString(9, p.getEndereco());
 			st.setString(10, p.getComplemento());
-			st.setInt(2, p.getUser_id());
+			st.setInt(11, p.getUser_id());
 			
             int rowsAffected = st.executeUpdate();
 			
@@ -157,14 +158,16 @@ public class PacientesDaoJDBC implements PacientesDao{
 	}
 	
 	@Override
-	public List<Pacientes> findAll() {
+	public List<Pacientes> findAll(Usuario user) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
 					"SELECT * FROM projetointegrador.pacientes "
+					+ "WHERE user_id = ? "
 					+ "ORDER BY paciente_name");
 			
+			st.setInt(1, user.getId());
 			rs = st.executeQuery();
 			
 			List<Pacientes> list = new ArrayList<>();

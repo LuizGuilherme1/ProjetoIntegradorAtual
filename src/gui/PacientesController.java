@@ -31,11 +31,14 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entites.Pacientes;
+import model.entites.Usuario;
 import model.service.PacienteService;
 
 public class PacientesController implements Initializable, DataChangeListener{
 
 	private PacienteService service = new PacienteService();
+	
+	private Usuario user;
 	
 	@FXML
 	private TableView<Pacientes> tvPacientes;
@@ -78,6 +81,10 @@ public class PacientesController implements Initializable, DataChangeListener{
 	
 	private ObservableList<Pacientes> obsList;
 	
+	public void setUser(Usuario user) {
+		this.user = user;
+	}
+	
 	@FXML
 	public void btActionCadastro(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
@@ -92,7 +99,7 @@ public class PacientesController implements Initializable, DataChangeListener{
 	
 	@FXML
 	public void btActionPesquisa() {
-		//TODOS
+		//TODO
 	}
 	
 	@FXML
@@ -115,6 +122,7 @@ public class PacientesController implements Initializable, DataChangeListener{
 
 			AddController controller = loader.getController();
 			controller.setPaciente(obj);
+			controller.getUser(user);
 			controller.setService(new PacienteService());
 			controller.subscribeDataChangeListener(this);
 			//controller.updateFormData();
@@ -139,7 +147,7 @@ public class PacientesController implements Initializable, DataChangeListener{
 		if (service == null) {
 			throw new IllegalStateException("Service was null");
 		}
-		List<Pacientes> list = service.findAll();
+		List<Pacientes> list = service.findAll(user);
 		obsList = FXCollections.observableArrayList(list);
 		tvPacientes.setItems(obsList);
 		initEditButtons();

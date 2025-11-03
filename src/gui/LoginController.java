@@ -65,6 +65,8 @@ public class LoginController implements Initializable, DataChangeListener {
 					parentStage.show();
 					
 					PacientesController controller = loader.getController();
+					user = this.service.getUser(user);
+					controller.setUser(user);
 					controller.updateTableView();
 					
 				}else {

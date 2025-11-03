@@ -1,9 +1,11 @@
 package gui;
 
 import java.net.URL;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -16,16 +18,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import model.entites.Pacientes;
+import model.entites.Usuario;
 import model.exceptions.ValidationException;
 import model.service.PacienteService;
 
 public class AddController implements Initializable{
 	private Pacientes entity;
+	
+	private Usuario user;
 	
 	private PacienteService service;
 	
@@ -69,6 +73,10 @@ public class AddController implements Initializable{
 
 	@FXML
 	private Button btCancel;
+	
+	public void getUser(Usuario user) {
+		this.user = user;
+	}
 	
 	@FXML
 	public void onBtCancelAction(ActionEvent event) {
@@ -134,8 +142,70 @@ public class AddController implements Initializable{
 	}
 
 	private Pacientes getFormData() {
-		// TODO Auto-generated method stub
-		return null;
+		Pacientes obj = new Pacientes();
+		
+		ValidationException exception = new ValidationException("Validation error");
+
+		obj.setId(Utils.tryParseToInt(txId.getText()));
+		
+		if (txName.getText() == null || txName.getText().trim().equals("")) {
+			exception.addError("nome", "Field can't be empty");
+		}
+		obj.setName(txName.getText());
+		
+		if (txCep.getText() == null || txCep.getText().trim().equals("")) {
+			exception.addError("Cep", "Field can't be empty");
+		}
+		obj.setCep(txCep.getText());
+		
+		if (txCns.getText() == null || txCns.getText().trim().equals("")) {
+			exception.addError("Cns", "Field can't be empty");
+		}
+		obj.setCns(txCns.getText());
+		
+		obj.setComplemento(txComplemento.getText());
+		
+		if (txCpf.getText() == null || txCpf.getText().trim().equals("")) {
+			exception.addError("Cpf", "Field can't be empty");
+		}
+		obj.setCpf(txCpf.getText());
+		
+		if (txEndereco.getText() == null || txEndereco.getText().trim().equals("")) {
+			exception.addError("Endereco", "Field can't be empty");
+		}
+		obj.setEndereco(txEndereco.getText());
+		
+		if (txRg.getText() == null || txRg.getText().trim().equals("")) {
+			exception.addError("Rg", "Field can't be empty");
+		}
+		obj.setRg(txRg.getText());
+		
+		if (txSex.getText() == null || txSex.getText().trim().equals("")) {
+			exception.addError("Sex", "Field can't be empty");
+		}
+		obj.setGender(txSex.getText());
+		
+		if (txIdade.getText() == null) {
+			exception.addError("idade", "Field can't be empty");
+		}else {
+		obj.setIdade(Utils.tryParseToInt(txIdade.getText()));
+		}
+		
+		if (dpBirthdate.getValue() == null) {
+			exception.addError("birthDate", "Field can't be empty");
+		}
+		else {
+			Instant instant = Instant.from(dpBirthdate.getValue().atStartOfDay(ZoneId.systemDefault()));
+			obj.setBirthdate(Date.from(instant));
+		}
+		
+		obj.setUser_id(user.getId());
+		
+		if (exception.getErrors().size() > 0) {
+			throw exception;
+		}
+		
+		return obj;
 	}
 
 	@Override
@@ -144,6 +214,7 @@ public class AddController implements Initializable{
 	}
 
 	private void initializeNodes() {
+		Constraints.setTextFieldInteger(txId);
 		Constraints.setTextFieldInteger(txIdade);
 		Utils.formatDatePicker(dpBirthdate, "dd/MM/yyyy");
 		

@@ -30,5 +30,9 @@ public class LoginService {
 	public void remove(Usuario obj) {
 		dao.deleteById(obj.getId());
 	}
+	
+	public Usuario getUser(Usuario obj) {
+		return dao.findByLogin(obj);
+	}
 
 }

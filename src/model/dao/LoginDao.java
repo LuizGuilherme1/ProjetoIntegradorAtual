@@ -11,4 +11,5 @@ public interface LoginDao {
 	void deleteById(int id);
 	Usuario findById(int id);
 	List<Usuario> findAll();
+	Usuario findByLogin(Usuario user);
 }
