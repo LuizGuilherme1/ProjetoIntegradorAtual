@@ -21,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -39,6 +40,12 @@ public class UsuarioController implements Initializable, DataChangeListener{
 
 	private LoginService service = new LoginService();
 	
+	private Usuario user;
+	
+	public void setUser(Usuario user) {
+		this.user = user;
+	}
+	
 	@FXML
 	private TableView<Usuario> tvUsuarios;
 	
@@ -52,10 +59,10 @@ public class UsuarioController implements Initializable, DataChangeListener{
 	private TableColumn<Usuario, String> tckey;
 	
 	@FXML
-	private TableColumn<Usuario, Pacientes> tcEdit;
+	private TableColumn<Usuario, Usuario> tcEdit;
 	
 	@FXML
-	private TableColumn<Usuario, Pacientes> tcDelete;
+	private TableColumn<Usuario, Usuario> tcDelete;
 	
 	@FXML
 	private Button btSintomas;
@@ -82,13 +89,33 @@ public class UsuarioController implements Initializable, DataChangeListener{
 	}
 	
 	@FXML
-	public void btActionSintomas() {
+	public void btActionSintomas(ActionEvent event) {
 		//TODO
 	}
 	
 	@FXML
-	public void btActionPacientes() {
-		//TODO
+	public void btActionPacientes(ActionEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Pacientes.fxml"));
+			ScrollPane scrollpane = loader.load();
+			
+			scrollpane.setFitToHeight(true);
+			scrollpane.setFitToWidth(true);
+			
+			Stage parentStage = Utils.currentStage(event);
+			Scene scene = Main.getMainScene();
+			scene = new Scene(scrollpane);
+			parentStage.setScene(scene);
+			parentStage.setTitle("pacientes");
+			parentStage.show();
+			
+			PacientesController controller = loader.getController();
+			user = this.service.getUser(user);
+			controller.setUser(user);
+			controller.updateTableView();
+		}catch (IOException e) {
+			e.printStackTrace();
+	    }
 	}
 	
 	@FXML
@@ -105,7 +132,7 @@ public class UsuarioController implements Initializable, DataChangeListener{
 		//updateTableView();
 	}
 	
-	public void setPacienteServices(Service service) {
+	public void setUsuarioServices(LoginService service) {
 		this.service = service;
 	}
 	
@@ -116,7 +143,7 @@ public class UsuarioController implements Initializable, DataChangeListener{
 
 			AddUsuarioController controller = loader.getController();
 			controller.setUsuario(obj);
-			controller.setService(new PacienteService());
+			controller.setService(new LoginService());
 			controller.subscribeDataChangeListener(this);
 			//controller.updateFormData();
 
@@ -140,9 +167,9 @@ public class UsuarioController implements Initializable, DataChangeListener{
 		if (service == null) {
 			throw new IllegalStateException("Service was null");
 		}
-		List<Pacientes> list = service.findAll();
+		List<Usuario> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
-		tvPacientes.setItems(obsList);
+		tvUsuarios.setItems(obsList);
 		initEditButtons();
 		initDeleteButtons();
 	}
@@ -184,7 +211,7 @@ public class UsuarioController implements Initializable, DataChangeListener{
 		});
 	}
 
-	private void removeEntity(Pacientes obj) {
+	private void removeEntity(Usuario obj) {
 		Optional<ButtonType> result = Alerts.showConfirmation("Confirme", "Voce quer deletar esse Paciente ?");
 		if (result.get() == ButtonType.OK) {
 			if (service == null) {

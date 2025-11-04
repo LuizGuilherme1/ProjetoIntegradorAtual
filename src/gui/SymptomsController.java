@@ -7,11 +7,18 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import model.entites.Symptons;
+import model.entites.Usuario;
 import model.service.SymptonsService;
 
 public class SymptomsController {
 	
 	private SymptonsService service;
+	
+    private Usuario user;
+	
+	public void setUser(Usuario user) {
+		this.user = user;
+	}
 	
 	@FXML
 	private TableView<Symptons> tvSymptoms;

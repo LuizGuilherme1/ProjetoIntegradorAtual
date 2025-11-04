@@ -98,8 +98,22 @@ public class PacientesController implements Initializable, DataChangeListener{
 	}
 	
 	@FXML
-	public void btActionPesquisa() {
+	public void btActionUsuarios() {
 		//TODO
+	}
+	
+	@FXML
+	public void btActionPesquisa() {
+		String nome = txPesquisa.getText();
+		if(nome == null || nome.trim()=="") {
+			updateTableView();
+		}else {
+			List<Pacientes> list = service.findByName(user, nome);
+			obsList = FXCollections.observableArrayList(list);
+			tvPacientes.setItems(obsList);
+			initEditButtons();
+			initDeleteButtons();
+		}
 	}
 	
 	@FXML

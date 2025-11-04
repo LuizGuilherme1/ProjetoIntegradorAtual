@@ -12,5 +12,6 @@ public interface PacientesDao {
 	void deleteById(int id);
 	Pacientes findById(int id);
 	List<Pacientes> findAll(Usuario user);
+	List<Pacientes> findByName(Usuario user, String name);
 	
 }

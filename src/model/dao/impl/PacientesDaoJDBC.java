@@ -186,5 +186,38 @@ public class PacientesDaoJDBC implements PacientesDao{
 			DB.closeResultSet(rs);
 		}
 	}
+
+	@Override
+	public List<Pacientes> findByName(Usuario user ,String name) {
+		// TODO Auto-generated method stub
+		name = name+"%";
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement(
+					"SELECT * FROM projetointegrador.pacientes "
+					+ "WHERE user_id = ? and paciente_name like ?"
+					+ "ORDER BY paciente_name");
+			
+			st.setInt(1, user.getId());
+			st.setString(2, name);
+			rs = st.executeQuery();
+			
+			List<Pacientes> list = new ArrayList<>();
+			
+			while (rs.next()) {
+				Pacientes obj = instantiatePacientes(rs);
+				list.add(obj);
+			}
+			return list;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
 	
 }
