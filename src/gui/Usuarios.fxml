@@ -21,7 +21,7 @@
                   <TextField fx:id="txPesquisa" />
               </items>
             </ToolBar>
-            <TableView prefHeight="335.0" prefWidth="878.0">
+            <TableView fx:id="tvUsuarios" prefHeight="335.0" prefWidth="878.0">
               <columns>
                 <TableColumn fx:id="tcName" prefWidth="75.0" text="Name" />
                 <TableColumn fx:id="tcEmail" prefWidth="75.0" text="Email" />

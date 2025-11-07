@@ -6,4 +6,5 @@ import model.entites.Symptons;
 
 public interface SymptonsDao {
 	List<Symptons> findAll();
+	List<Symptons> findByName(String name);
 }

@@ -14,10 +14,10 @@
          <children>
             <ToolBar prefHeight="40.0" prefWidth="200.0">
               <items>
-                <Button fx:id="btPacientes" mnemonicParsing="false" text="Pacientes" />
-                  <Button fx:id="btAjuda" mnemonicParsing="false" onAction="#onBtActionAjuda" text="Pesquisa" />
-                  <TextField />
-                  <Button mnemonicParsing="false" text="usuario" />
+                <Button fx:id="btPacientes" mnemonicParsing="false" onAction="#onBtPacientes" text="Pacientes" />
+                  <Button fx:id="btPesquisa" mnemonicParsing="false" onAction="#onBtPesquisa" text="Pesquisa" />
+                  <TextField fx:id="txPesquisa" />
+                  <Button fx:id="btUsuarios" mnemonicParsing="false" onAction="#onBtUsuario" text="usuario" />
               </items>
             </ToolBar>
             <TableView fx:id="tvSymptoms" prefHeight="333.0" prefWidth="596.0">

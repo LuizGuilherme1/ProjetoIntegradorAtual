@@ -10,6 +10,7 @@ import java.util.List;
 import db.DB;
 import db.DbException;
 import model.dao.SymptonsDao;
+import model.entites.Pacientes;
 import model.entites.Symptons;
 
 public class SymptonsDaoJDBC implements SymptonsDao{
@@ -53,6 +54,38 @@ public class SymptonsDaoJDBC implements SymptonsDao{
 		obj.setName(rs.getString("name"));
 		obj.setDesc(rs.getString("desc"));
 		return obj;
+	}
+
+	@Override
+	public List<Symptons> findByName(String name) {
+		// TODO Auto-generated method stub
+		name = name+"%";
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement(
+					"SELECT * FROM projetointegrador. "
+					+ "WHERE name like ?"
+					+ "ORDER BY name");
+			
+			st.setString(1, name);
+			rs = st.executeQuery();
+			
+			List<Symptons> list = new ArrayList<>();
+			
+			while (rs.next()) {
+				Symptons obj = instantiateSymptons(rs);
+				list.add(obj);
+			}
+			return list;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
 	}
 
 }

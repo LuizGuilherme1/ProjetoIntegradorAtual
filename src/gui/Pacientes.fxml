@@ -17,8 +17,8 @@
                 <Button fx:id="btSintomas" mnemonicParsing="false" onAction="#btActionSintomas" text="Sintomas" />
                   <Button fx:id="btCadastro" mnemonicParsing="false" onAction="#btActionCadastro" text="cadastro" />
                   <Button fx:id="btPesquisa" mnemonicParsing="false" onAction="#btActionPesquisa" text="pesquisa" />
-                  <TextField />
-                  <Button mnemonicParsing="false" text="usuarios" />
+                  <TextField fx:id="txPesquisa" />
+                  <Button fx:id="btUsuarios" mnemonicParsing="false" onAction="#btActionUsuarios" text="usuarios" />
               </items>
             </ToolBar>
             <TableView fx:id="tvPacientes" prefHeight="335.0" prefWidth="878.0">

@@ -21,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -93,13 +94,52 @@ public class PacientesController implements Initializable, DataChangeListener{
 	}
 	
 	@FXML
-	public void btActionSintomas() {
-		//TODO
+	public void btActionSintomas(ActionEvent event) {
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Symptons.fxml"));
+				ScrollPane scrollpane = loader.load();
+				
+				scrollpane.setFitToHeight(true);
+				scrollpane.setFitToWidth(true);
+				
+				Stage parentStage = Utils.currentStage(event);
+				Scene scene = Main.getMainScene();
+				scene = new Scene(scrollpane);
+				parentStage.setScene(scene);
+				parentStage.setTitle("simtomas");
+				parentStage.show();
+				
+				SymptomsController controller = loader.getController();
+				controller.setUser(user);
+				controller.updateTableView();
+			}catch (IOException e) {
+				e.printStackTrace();
+		    }
 	}
 	
 	@FXML
-	public void btActionUsuarios() {
+	public void btActionUsuarios(ActionEvent event) {
 		//TODO
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Usuarios.fxml"));
+			ScrollPane scrollpane = loader.load();
+			
+			scrollpane.setFitToHeight(true);
+			scrollpane.setFitToWidth(true);
+			
+			Stage parentStage = Utils.currentStage(event);
+			Scene scene = Main.getMainScene();
+			scene = new Scene(scrollpane);
+			parentStage.setScene(scene);
+			parentStage.setTitle("Usuarios");
+			parentStage.show();
+			
+			UsuarioController controller = loader.getController();
+			controller.setUser(user);
+			controller.updateTableView();
+		}catch (IOException e) {
+			e.printStackTrace();
+	    }
 	}
 	
 	@FXML

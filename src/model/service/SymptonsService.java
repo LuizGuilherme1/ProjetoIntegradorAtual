@@ -12,4 +12,8 @@ public class SymptonsService {
 	public List<Symptons> findAll(){
 		return dao.findAll();
 	}
+	
+	public List<Symptons> findByName(String name){
+		return dao.findByName(name);
+	}
 }

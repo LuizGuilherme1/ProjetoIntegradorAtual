@@ -91,6 +91,26 @@ public class UsuarioController implements Initializable, DataChangeListener{
 	@FXML
 	public void btActionSintomas(ActionEvent event) {
 		//TODO
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Symptons.fxml"));
+			ScrollPane scrollpane = loader.load();
+			
+			scrollpane.setFitToHeight(true);
+			scrollpane.setFitToWidth(true);
+			
+			Stage parentStage = Utils.currentStage(event);
+			Scene scene = Main.getMainScene();
+			scene = new Scene(scrollpane);
+			parentStage.setScene(scene);
+			parentStage.setTitle("simtomas");
+			parentStage.show();
+			
+			SymptomsController controller = loader.getController();
+			controller.setUser(user);
+			controller.updateTableView();
+		}catch (IOException e) {
+			e.printStackTrace();
+	    }
 	}
 	
 	@FXML
@@ -110,7 +130,6 @@ public class UsuarioController implements Initializable, DataChangeListener{
 			parentStage.show();
 			
 			PacientesController controller = loader.getController();
-			user = this.service.getUser(user);
 			controller.setUser(user);
 			controller.updateTableView();
 		}catch (IOException e) {
@@ -168,6 +187,7 @@ public class UsuarioController implements Initializable, DataChangeListener{
 			throw new IllegalStateException("Service was null");
 		}
 		List<Usuario> list = service.findAll();
+		System.out.println(list);
 		obsList = FXCollections.observableArrayList(list);
 		tvUsuarios.setItems(obsList);
 		initEditButtons();
