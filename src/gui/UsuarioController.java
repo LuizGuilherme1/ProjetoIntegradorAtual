@@ -90,9 +90,8 @@ public class UsuarioController implements Initializable, DataChangeListener{
 	
 	@FXML
 	public void btActionSintomas(ActionEvent event) {
-		//TODO
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Symptons.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Symptoms.fxml"));
 			ScrollPane scrollpane = loader.load();
 			
 			scrollpane.setFitToHeight(true);
@@ -187,7 +186,6 @@ public class UsuarioController implements Initializable, DataChangeListener{
 			throw new IllegalStateException("Service was null");
 		}
 		List<Usuario> list = service.findAll();
-		System.out.println(list);
 		obsList = FXCollections.observableArrayList(list);
 		tvUsuarios.setItems(obsList);
 		initEditButtons();

@@ -50,9 +50,11 @@ public class SymptonsDaoJDBC implements SymptonsDao{
 //TODO
 	private Symptons instantiateSymptons(ResultSet rs) throws SQLException{
 		Symptons obj = new Symptons();
-		obj.setType(rs.getString("type"));
-		obj.setName(rs.getString("name"));
-		obj.setDesc(rs.getString("desc"));
+		obj.setTranstorno(rs.getString("transtorno"));
+		obj.setCid(rs.getString("cid"));
+		obj.setSintomas_bio(rs.getString("sintomas_biologicos"));
+		obj.setSintomas_soc(rs.getString("consequencias_sociais"));
+		obj.setCaracte(rs.getString("caracteristicas"));
 		return obj;
 	}
 

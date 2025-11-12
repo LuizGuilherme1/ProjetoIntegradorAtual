@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-	//sysmptons, adicinar a chave e a passagem de chave, mudar db para h2
+	//sysmptons, pesquisa de usuario, mudar db para h2 mudar para .bat
 	
 	private static Scene mainScene;
 	@Override

@@ -96,7 +96,7 @@ public class PacientesController implements Initializable, DataChangeListener{
 	@FXML
 	public void btActionSintomas(ActionEvent event) {
 			try {
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Symptons.fxml"));
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Symptoms.fxml"));
 				ScrollPane scrollpane = loader.load();
 				
 				scrollpane.setFitToHeight(true);
@@ -119,7 +119,6 @@ public class PacientesController implements Initializable, DataChangeListener{
 	
 	@FXML
 	public void btActionUsuarios(ActionEvent event) {
-		//TODO
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Usuarios.fxml"));
 			ScrollPane scrollpane = loader.load();
@@ -269,7 +268,7 @@ public class PacientesController implements Initializable, DataChangeListener{
 		tcName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		tcIdade.setCellValueFactory(new PropertyValueFactory<>("idade"));
 		tcBirthdate.setCellValueFactory(new PropertyValueFactory<>("birthdate"));
-		System.out.println(tcBirthdate);
+		//System.out.println(tcBirthdate);
 		Utils.formatTableColumnDate(tcBirthdate, "dd/MM/yyyy");
 		tcSexo.setCellValueFactory(new PropertyValueFactory<>("gender"));
 		

@@ -21,6 +21,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.entites.Pacientes;
 import model.entites.Symptons;
@@ -41,13 +42,19 @@ public class SymptomsController implements Initializable, DataChangeListener{
 	private TableView<Symptons> tvSymptoms;
 	
 	@FXML
-	private TableColumn<Symptons, String> tcId;
+	private TableColumn<Symptons, String> tcTranstorno;
 	
 	@FXML
-	private TableColumn<Symptons, String> tcName;
+	private TableColumn<Symptons, String> tcCid;
 	
 	@FXML
-	private TableColumn<Symptons, String> tcDescS;
+	private TableColumn<Symptons, String> tcSinBio;
+	
+	@FXML
+	private TableColumn<Symptons, String> tcSinSoc;
+	
+	@FXML
+	private TableColumn<Symptons, String> tcCarac;
 	
 	@FXML
 	private TextField txPesquisa;
@@ -146,9 +153,18 @@ public class SymptomsController implements Initializable, DataChangeListener{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		
+		initializeNodes();
 	}	
+	
+	private void initializeNodes() {
+		//TODO
+		tcTranstorno.setCellValueFactory(new PropertyValueFactory<>("Transtorno"));
+		tcCid.setCellValueFactory(new PropertyValueFactory<>("cid"));
+		tcSinBio.setCellValueFactory(new PropertyValueFactory<>("Sin Biologicos"));
+		tcSinSoc.setCellValueFactory(new PropertyValueFactory<>("Sin Social"));
+		tcCarac.setCellValueFactory(new PropertyValueFactory<>("Caracteristicas"));
+		
+	}
 	
 }
 	
