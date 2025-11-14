@@ -21,7 +21,12 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="C:/java-libs/h2/h2-2.4.240.jar">
+	<classpathentry kind="lib" path="C:/eclipse for web and java dev/ws-javafx/ProjetoIntegradorAtual/lib/h2-2.4.240.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/java-libs/h2/h2-2.4.240.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

@@ -42,10 +42,10 @@
 		
 		
 		<copy todir="externalLibs">
-					<fileset dir="C:\java-libs\h2">
-						<filename name="h2-2.4.240.jar"/>
-					</fileset>
-				</copy>
+			<fileset dir="C:\java-libs\h2">
+			    <include name="h2-2.4.240.jar"/>
+			</fileset>
+		</copy>
 		
 		<copy todir="externalLibs">
 			<fileset dir="C:\java-libs\javafx-sdk-17.0.9\lib">
@@ -100,6 +100,7 @@
 				<include name="mysql-connector-j-8.1.0.jar"/>
 				<include name="javafx.media.jar"/>
 				<include name="javafx.controls.jar"/>
+				<include name="h2-2.4.240.jar"/>
 			</fileset>
 		</copy>
 	
