@@ -25,8 +25,8 @@ public class LoginDaoJDBC implements LoginDao{
 	public boolean velidate(Usuario obj) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("SELECT * FROM projetointegrador.usuario "
-					+ "WHERE email = ? and senha = ?");
+			st = conn.prepareStatement("SELECT * FROM usuario "
+					+ "WHERE email = ? AND senha = ? ");
 			st.setString(1, obj.getEmail());
 			st.setString(2, obj.getSenha());
 			
@@ -47,7 +47,7 @@ public class LoginDaoJDBC implements LoginDao{
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-					"INSERT INTO projetointegrador.usuario "
+					"INSERT INTO usuario "
 					+ "(nome,email,senha,acess) "
 					+ "VALUES "
 					+ "(?, ?, ?, ?)",
@@ -82,7 +82,7 @@ public class LoginDaoJDBC implements LoginDao{
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-					"update projetointegrador.usuario "
+					"update usuario "
 					+ "set nome = ?, email = ?, senha = ?, "
 					+ "acess = ? "
 					+ "where id = ?");
@@ -105,7 +105,7 @@ public class LoginDaoJDBC implements LoginDao{
 	public void deleteById(int id) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("DELETE FROM projetointegrador.usuario WHERE Id = ?");
+			st = conn.prepareStatement("DELETE FROM usuario WHERE Id = ?");
 			
 			st.setInt(1, id);
 			
@@ -132,7 +132,7 @@ public class LoginDaoJDBC implements LoginDao{
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
-				Usuario obj = instantiatePacientes(rs);
+				Usuario obj = instantiateUsuarios(rs);
 				return obj;
 			}
 			return null;
@@ -146,7 +146,7 @@ public class LoginDaoJDBC implements LoginDao{
 		}
 	}
 	
-	private Usuario instantiatePacientes(ResultSet rs) throws SQLException {
+	private Usuario instantiateUsuarios(ResultSet rs) throws SQLException {
 		Usuario obj = new Usuario();
 		obj.setId(rs.getInt("id"));
 		obj.setName(rs.getString("nome"));
@@ -162,7 +162,7 @@ public class LoginDaoJDBC implements LoginDao{
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT * FROM projetointegrador.usuario "
+					"SELECT * FROM usuario "
 					+ "ORDER BY nome");
 			
 			rs = st.executeQuery();
@@ -170,7 +170,7 @@ public class LoginDaoJDBC implements LoginDao{
 			List<Usuario> list = new ArrayList<>();
 			
 			while (rs.next()) {
-				Usuario obj = instantiatePacientes(rs);
+				Usuario obj = instantiateUsuarios(rs);
 				list.add(obj);
 			}
 			return list;
@@ -197,7 +197,7 @@ public class LoginDaoJDBC implements LoginDao{
 			st.setString(1, user.getEmail());
 			rs = st.executeQuery();
 			if (rs.next()) {
-				Usuario obj = instantiatePacientes(rs);
+				Usuario obj = instantiateUsuarios(rs);
 				return obj;
 			}
 			return null;

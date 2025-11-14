@@ -26,7 +26,7 @@ public class SymptonsDaoJDBC implements SymptonsDao{
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT * FROM projetointegrador.Symptons "
+					"SELECT * FROM symptons "
 					+ "ORDER BY id");
 			
 			rs = st.executeQuery();
@@ -66,9 +66,9 @@ public class SymptonsDaoJDBC implements SymptonsDao{
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT * FROM projetointegrador. "
+					"SELECT * FROM symptons "
 					+ "WHERE name like ?"
-					+ "ORDER BY name");
+					+ "ORDER BY transtorno");
 			
 			st.setString(1, name);
 			rs = st.executeQuery();

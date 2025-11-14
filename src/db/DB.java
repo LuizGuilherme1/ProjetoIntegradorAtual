@@ -15,11 +15,16 @@ private static Connection conn = null;
 	public static Connection getConnection() {
 		if (conn == null) {
 			try {
+				Class.forName("org.h2.Driver");
+				
 				Properties props = loadProperties();
 				String url = props.getProperty("dburl");
 				conn = DriverManager.getConnection(url, props);
-			}
-			catch (SQLException e) {
+				
+			}catch (ClassNotFoundException e) {
+                throw new DbException("ERRO: Driver H2 não encontrado no classpath. → " + e.getMessage());
+
+            }catch (SQLException e) {
 				throw new DbException(e.getMessage());
 			}
 		}

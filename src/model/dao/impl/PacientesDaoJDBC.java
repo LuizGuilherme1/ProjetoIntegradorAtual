@@ -28,7 +28,7 @@ public class PacientesDaoJDBC implements PacientesDao{
 		try {
 			st = conn.prepareStatement(
 					"INSERT INTO pacientes "
-					+ "(paciente_name, idade, data_nascimento, sexo, cns, cpf, rg, cep, endereço, complemento, user_id) "
+					+ "(paciente_name, idade, data_nascimento, sexo, cns, cpf, rg, cep, endereco, complemento, user_id) "
 					+ "VALUES "
 					+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
@@ -71,8 +71,8 @@ public class PacientesDaoJDBC implements PacientesDao{
 			st = conn.prepareStatement(
 					"update pacientes "
 					+ "set paciente_name = ?, idade = ?, data_nascimento = ?, "
-					+ "sexo = ?, cns = ?, cpf = ?, rg = ?, cep = ?, endereço = ?, complemento = ? "
-					+ "where id = ?");
+					+ "sexo = ?, cns = ?, cpf = ?, rg = ?, cep = ?, endereco = ?, complemento = ? "
+					+ "where paciente_id = ?");
 			st.setString(1, p.getName());
 			st.setInt(2, p.getIdade());
 			st.setDate(3, new java.sql.Date(p.getBirthdate().getTime()));
@@ -151,7 +151,7 @@ public class PacientesDaoJDBC implements PacientesDao{
 		obj.setCpf(rs.getString("cpf"));
 		obj.setRg(rs.getString("rg"));
 		obj.setCep(rs.getString("cep"));
-		obj.setEndereco(rs.getString("endereço"));
+		obj.setEndereco(rs.getString("endereco"));
 		obj.setComplemento(rs.getString("complemento"));
 		obj.setUser_id(rs.getInt("user_id"));
 		return obj;
@@ -163,7 +163,7 @@ public class PacientesDaoJDBC implements PacientesDao{
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT * FROM projetointegrador.pacientes "
+					"SELECT * FROM pacientes "
 					+ "WHERE user_id = ? "
 					+ "ORDER BY paciente_name");
 			
@@ -189,13 +189,12 @@ public class PacientesDaoJDBC implements PacientesDao{
 
 	@Override
 	public List<Pacientes> findByName(Usuario user ,String name) {
-		// TODO Auto-generated method stub
 		name = name+"%";
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT * FROM projetointegrador.pacientes "
+					"SELECT * FROM pacientes "
 					+ "WHERE user_id = ? and paciente_name like ?"
 					+ "ORDER BY paciente_name");
 			

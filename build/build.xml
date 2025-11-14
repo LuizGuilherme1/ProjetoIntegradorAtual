@@ -39,6 +39,14 @@
 				<filename name="javafx-swt.jar"/>
 			</fileset>
 		</copy>
+		
+		
+		<copy todir="externalLibs">
+					<fileset dir="C:\java-libs\h2">
+						<filename name="h2-2.4.240.jar"/>
+					</fileset>
+				</copy>
+		
 		<copy todir="externalLibs">
 			<fileset dir="C:\java-libs\javafx-sdk-17.0.9\lib">
 				<filename name="javafx.media.jar"/>

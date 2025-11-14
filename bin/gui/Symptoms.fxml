@@ -22,9 +22,11 @@
             </ToolBar>
             <TableView fx:id="tvSymptoms" prefHeight="333.0" prefWidth="596.0">
               <columns>
-                <TableColumn fx:id="tcId" prefWidth="75.0" text="tipo" />
-                <TableColumn fx:id="tcName" prefWidth="75.0" text="nome" />
-                  <TableColumn fx:id="tcDescS" prefWidth="75.0" text="sintomas" />
+                <TableColumn fx:id="tcTranstorno" prefWidth="75.0" text="Transtorno" />
+                <TableColumn fx:id="tcCid" prefWidth="75.0" text="cid" />
+                  <TableColumn fx:id="tcSinBio" prefWidth="103.0" text="Sin Biologicos" />
+                  <TableColumn fx:id="tcSinSoc" prefWidth="89.0" text="Sin Social" />
+                  <TableColumn fx:id="tcCarac" prefWidth="220.0" text="Caracteristicas" />
               </columns>
             </TableView>
          </children>
