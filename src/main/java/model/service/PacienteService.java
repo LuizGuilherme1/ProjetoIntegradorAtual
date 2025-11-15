@@ -1,0 +1,32 @@
+package model.service;
+
+import java.util.List;
+
+import model.dao.DaoFactory;
+import model.dao.PacientesDao;
+import model.entities.Pacientes;
+import model.entities.Usuario;
+
+public class PacienteService {
+	private PacientesDao dao = DaoFactory.createPacientesDao();
+	
+	public List<Pacientes> findAll(Usuario user){
+		return dao.findAll(user);
+	}
+	
+	public void saveOrUpdate(Pacientes obj) {
+		if(obj.getId() == null) {
+			dao.insert(obj);
+		}else {
+			dao.edit(obj);
+		}
+	}
+	
+	public void remove(Pacientes obj) {
+		dao.deleteById(obj.getId());
+	}
+	
+	public List<Pacientes> findByName(Usuario user, String name){
+		return dao.findByName(user, name);
+	}
+}
