@@ -17,6 +17,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+	
+	/*
+	 * SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+       Para inserir
+       String birthStr = sdf.format(paciente.getBirthdate());
+	 */
 
     private static Scene mainScene;
 
