@@ -178,7 +178,7 @@ public class PacientesController implements Initializable, DataChangeListener{
 			controller.getUser(user);
 			controller.setService(new PacienteService());
 			controller.subscribeDataChangeListener(this);
-			//controller.updateFormData();
+			controller.updateFormData();
 
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("enter Department data");

@@ -6,7 +6,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Date;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import db.DB;
 import db.DbException;
@@ -34,7 +38,9 @@ public class PacientesDaoJDBC implements PacientesDao{
 					Statement.RETURN_GENERATED_KEYS);
 			st.setString(1, p.getName());
 			st.setInt(2, p.getIdade());
-			st.setDate(3, new java.sql.Date(p.getBirthdate().getTime()));
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String birthStr = sdf.format(p.getBirthdate());
+			st.setString(3, birthStr);
 			st.setString(4, p.getGender());
 			st.setString(5, p.getCns());
 			st.setString(6, p.getCpf());
@@ -75,7 +81,9 @@ public class PacientesDaoJDBC implements PacientesDao{
 					+ "where paciente_id = ?");
 			st.setString(1, p.getName());
 			st.setInt(2, p.getIdade());
-			st.setDate(3, new java.sql.Date(p.getBirthdate().getTime()));
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String birthStr = sdf.format(p.getBirthdate());
+			st.setString(3, birthStr);
 			st.setString(4, p.getGender());
 			st.setString(5, p.getCns());
 			st.setString(6, p.getCpf());
@@ -140,12 +148,33 @@ public class PacientesDaoJDBC implements PacientesDao{
 		}
 	}
 	
-	private Pacientes instantiatePacientes(ResultSet rs) throws SQLException {
+	private Pacientes instantiatePacientes(ResultSet rs) {
 		Pacientes obj = new Pacientes();
+		try {
 		obj.setId(rs.getInt("paciente_id"));
 		obj.setName(rs.getString("paciente_name"));
 		obj.setIdade(rs.getInt("idade"));
-		obj.setBirthdate(rs.getDate("data_nascimento"));
+		
+		String dateStr = rs.getString("data_nascimento");
+
+		Date utilDate;
+
+		if (dateStr == null || dateStr.isEmpty()) {
+		    utilDate = null;  // TODO throw exception
+		} 
+		else if (dateStr.matches("\\d+")) { 
+		    // EPOCH MILLISECONDS
+		    long millis = Long.parseLong(dateStr);
+		    utilDate = new Date(millis);
+		} 
+		else {
+		    // STRING DATE
+		    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		    utilDate = sdf.parse(dateStr);
+		}
+
+		obj.setBirthdate(utilDate);
+		
 		obj.setGender(rs.getString("sexo"));
 		obj.setCns(rs.getString("cns"));
 		obj.setCpf(rs.getString("cpf"));
@@ -154,6 +183,9 @@ public class PacientesDaoJDBC implements PacientesDao{
 		obj.setEndereco(rs.getString("endereco"));
 		obj.setComplemento(rs.getString("complemento"));
 		obj.setUser_id(rs.getInt("user_id"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return obj;
 	}
 	

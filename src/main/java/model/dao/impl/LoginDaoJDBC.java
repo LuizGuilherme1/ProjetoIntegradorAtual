@@ -209,5 +209,36 @@ public class LoginDaoJDBC implements LoginDao{
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
 		}
+	}
+
+	@Override
+	public List<Usuario> findByName(String name) {
+		// TODO Auto-generated method stub
+		name = name+"%";
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement(
+					"SELECT * FROM usuario "
+					+"WHERE nome like ? "
+					+"ORDER BY nome");
+			
+			st.setString(1, name);
+			rs = st.executeQuery();
+			
+			List<Usuario> list = new ArrayList<>();
+			
+			while (rs.next()) {
+				Usuario obj = instantiateUsuarios(rs);
+				list.add(obj);
+			}
+			return list;
+			
+			}catch (SQLException e) {
+				throw new DbException(e.getMessage());
+			}finally {
+				DB.closeStatement(st);
+				DB.closeResultSet(rs);
+			}
 	}	
 }

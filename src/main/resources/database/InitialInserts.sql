@@ -1,7 +1,7 @@
 
 
-INSERT INTO usuario (nome, email, senha, acess)
-VALUES ('Administrador', 'admin@admin.com', '123456', 'root');
+INSERT INTO usuario (id, nome, email, senha, acess)
+VALUES (1, 'Administrador', 'admin@admin.com', '123456', 'root');
 
 INSERT INTO pacientes (
     paciente_name, idade, data_nascimento, sexo, cns, cpf, rg, cep,

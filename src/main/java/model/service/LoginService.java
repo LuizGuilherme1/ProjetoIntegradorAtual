@@ -34,5 +34,9 @@ public class LoginService {
 	public Usuario getUser(Usuario obj) {
 		return dao.findByLogin(obj);
 	}
+	
+	public List<Usuario> findByName(String name){
+		return dao.findByName(name);
+	}
 
 }

@@ -12,4 +12,5 @@ public interface LoginDao {
 	Usuario findById(int id);
 	List<Usuario> findAll();
 	Usuario findByLogin(Usuario user);
+	List<Usuario> findByName(String name);
 }

@@ -139,6 +139,16 @@ public class UsuarioController implements Initializable, DataChangeListener{
 	@FXML
 	public void btActionPesquisa() {
 		//TODO
+		String nome = txPesquisa.getText();
+		if(nome == null || nome.trim()=="") {
+			updateTableView();
+		}else {
+			List<Usuario> list = service.findByName(nome);
+			obsList = FXCollections.observableArrayList(list);
+			tvUsuarios.setItems(obsList);
+			initEditButtons();
+			initDeleteButtons();
+		}
 	}
 	
 	@FXML
@@ -163,7 +173,7 @@ public class UsuarioController implements Initializable, DataChangeListener{
 			controller.setUsuario(obj);
 			controller.setService(new LoginService());
 			controller.subscribeDataChangeListener(this);
-			//controller.updateFormData();
+			controller.updateFormData();
 
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("enter Department data");
