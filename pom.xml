@@ -53,6 +53,37 @@
                     <mainClass>application.Main</mainClass>
                 </configuration>
             </plugin>
+             <!-- JavaFX Maven shade Plugin -->
+            <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>3.5.0</version>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>shade</goal>
+                    </goals>
+                    <configuration>
+                        <transformers>
+                            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <mainClass>application.Main</mainClass>
+                            </transformer>
+                        </transformers>
+                        <filters>
+                            <filter>
+                                <artifact>*:*</artifact>
+                                <includes>
+                                    <include>**/*.dll</include>
+                                    <include>**/*.so</include>
+                                    <include>**/*.dylib</include>
+                                </includes>
+                            </filter>
+                        </filters>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
             
             <!-- Uber/Fat JAR Plugin -->
             <plugin>
@@ -95,7 +126,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Dependências no próprio JAR (Uber JAR / Fat JAR) -->
+            <!-- Dependências no próprio JAR (Uber JAR / Fat JAR)-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -120,7 +151,7 @@
                     </execution>
                 </executions>
             </plugin>
-            
+             
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
@@ -142,7 +173,7 @@
                         </execution>
                 </executions>
             </plugin>
-            
+             
             <plugin>
              <groupId>org.apache.maven.plugins</groupId>
              <artifactId>maven-release-plugin</artifactId>
